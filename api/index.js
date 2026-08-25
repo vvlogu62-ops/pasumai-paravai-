@@ -1,10 +1,17 @@
-const multer = require('multer')
+import multer from 'multer'
 
 const upload = multer({
   storage: multer.memoryStorage()
 })
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    return res.status(200).json({
+      success: true,
+      message: 'Pasumai Paravai AI server online'
+    })
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
@@ -27,7 +34,6 @@ module.exports = async (req, res) => {
       })
     }
 
-    // Temporary demo AI response
     return res.status(200).json({
       success: true,
       status: 'Detected',
